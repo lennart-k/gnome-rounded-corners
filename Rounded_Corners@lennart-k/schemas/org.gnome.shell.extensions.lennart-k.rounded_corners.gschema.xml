@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+	<schema id="org.gnome.shell.extensions.lennart-k.rounded_corners" path="/org/gnome/shell/extensions/lennart-k/rounded_corners/">
+		<key type="i" name="corner-radius">
+			<default>12</default>
+			<summary>corner radius</summary>
+			<description/>
+		</key>
+	</schema>
+</schemalist>
