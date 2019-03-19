@@ -41,13 +41,17 @@ Ext.prototype.initCorners = function (radius) {
     this.destroyCorners()
 
     let monitors = Main.layoutManager.monitors;
-
+    
     for (let m in Main.layoutManager.monitors) {
         let monitor = monitors[m];
 
+        if(typeof monitor.index === 'undefined') {
+            continue;
+        }
+
         for (let c in corner_types) {
             let corner = corner_types[c];
-
+            
             corners[monitor.index + corner] = new St.Bin({
                 style_class: 'corner' + corner,
                 reactive: false,
