@@ -45,7 +45,7 @@ Ext.prototype.initCorners = function (radius) {
     for (let m in Main.layoutManager.monitors) {
         let monitor = monitors[m];
 
-        if(typeof monitor.index === 'undefined') {
+        if(monitor.index == undefined) {
             continue;
         }
 
