@@ -56,8 +56,6 @@ Ext.prototype.initCorners = function (radius) {
                 style_class: 'corner' + corner,
                 reactive: false,
                 can_focus: false,
-                x_fill: true,
-                y_fill: false,
                 track_hover: false,
                 style: "width: " + radius + "px; height: " + radius + "px; background-size: " + radius + "px;"
             });
