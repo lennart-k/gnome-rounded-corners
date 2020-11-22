@@ -64,14 +64,14 @@ Ext.prototype.initCorners = function (radius) {
         corners[monitor.index + 'tl'].x = monitor.x;
         corners[monitor.index + 'tl'].y = monitor.y;
 
-        corners[monitor.index + 'tr'].x = monitor.x + monitor.width - radius;
+        corners[monitor.index + 'tr'].x = monitor.x + monitor.width - monitor.geometry_scale * radius;
         corners[monitor.index + 'tr'].y = monitor.y;
 
         corners[monitor.index + 'bl'].x = monitor.x;
-        corners[monitor.index + 'bl'].y = monitor.y + monitor.height - radius;
+        corners[monitor.index + 'bl'].y = monitor.y + monitor.height - monitor.geometry_scale * radius;
 
-        corners[monitor.index + 'br'].x = monitor.x + monitor.width - radius;
-        corners[monitor.index + 'br'].y = monitor.y + monitor.height - radius;
+        corners[monitor.index + 'br'].x = monitor.x + monitor.width - monitor.geometry_scale * radius;
+        corners[monitor.index + 'br'].y = monitor.y + monitor.height - monitor.geometry_scale * radius;
     }
 
     for (let c in corners) {
