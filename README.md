@@ -1,6 +1,12 @@
 # gnome-rounded-corners
 
-Adds rounded corners to every monitor in Gnome
+Adds rounded corners to every monitor in Gnome.
+
+## not actively maintained
+
+As I'm currently not using GNOME a lot,
+my priorities have shifted a lot to other projects.
+However I'll try to keep up with pull requests.
 
 
 ## Credits
