@@ -22,7 +22,7 @@ function buildPrefsWidget() {
 		});
 
 		let label = new Gtk.Label({
-			label: "Border radius\n<small>in px</small>",
+			label: "",
 			use_markup: true,
 		});
 		let adjustment = new Gtk.Adjustment({
@@ -43,13 +43,20 @@ function buildPrefsWidget() {
 		hbox.append(scale);
 		frame.append(hbox);
 
+		function updateLabel(val) {
+			label.set_markup('Border radius:\n<small>'+val+' px</small>');
+		}
+
 		var pref = config.RADIUS;
-		scale.set_value(pref.get());
+		const val = pref.get();
+		scale.set_value(val);
+		updateLabel(val);
 		scale.connect('value-changed', function(sw) {
 			var oldval = pref.get();
 			var newval = sw.get_value();
 			if (newval != pref.get()) {
 				pref.set(newval);
+				updateLabel(newval);
 			}
 		});
 	})();
