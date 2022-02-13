@@ -1,0 +1,15 @@
+<!-- Learn about this code on MDN: https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Clipping_and_masking -->
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="256" height="256">
+  <defs>
+    <mask id="mask">
+      <rect width="512" height="512" fill="white"/>
+      <circle cx="256" cy="0" r="256" fill="black" />
+    </mask>
+    <clipPath id="corner">
+        <rect width="256" height="256" x="0" y="0" />
+    </clipPath>
+  </defs>
+  
+  <rect x="0" y="0" width="512" height="512" mask="url(#mask)" clip-path="url(#corner)" />
+</svg>
