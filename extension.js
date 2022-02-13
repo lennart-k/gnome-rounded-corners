@@ -63,7 +63,7 @@ class Ext {
                     can_focus: false,
                     track_hover: false,
                     style: `
-                        background-image: url("${cornerDir}/corner-${corner}.png");
+                        background-image: url("${cornerDir}/corner-${corner}.svg");
                         background-size: contain;
                     `
                 })
