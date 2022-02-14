@@ -43,7 +43,7 @@ class Ext {
     }
 
     initCorners() {
-        console.log('initCorners')
+        log('initCorners')
         let radius = this.prefs.radius
         this.destroyCorners()
 
