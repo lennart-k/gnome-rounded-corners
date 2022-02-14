@@ -68,7 +68,7 @@ class Ext {
                     `
                 })
 
-                Main.uiGroup.add_actor(cornerDecoration)
+                Main.uiGroup.add_child(cornerDecoration)
             }
         }
     }
