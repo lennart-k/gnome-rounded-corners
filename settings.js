@@ -1,34 +1,11 @@
 const Gio = imports.gi.Gio;
-const ExtensionUtils = imports.misc.extensionUtils;
-const Extension = ExtensionUtils.getCurrentExtension();
+const { getSettings } = imports.misc.extensionUtils;
 
 const SCHEMA_PATH = 'org.gnome.shell.extensions.lennart-k.rounded_corners'
 
-function getLocalSettings() {
-	const GioSSS = Gio.SettingsSchemaSource;
-
-	const schemaDir = Extension.dir.get_child('schemas');
-
-	let schemaSource = GioSSS.get_default();
-	if (schemaDir.query_exists(null)) {
-		schemaSource = GioSSS.new_from_directory(
-			schemaDir.get_path(),
-			schemaSource,
-			false);
-	}
-
-	const schemaObj = schemaSource.lookup(SCHEMA_PATH, true);
-	if (!schemaObj) {
-		throw new Error(
-			`Schema ${SCHEMA_PATH} could not be found for extension ${Extension.metadata.uuid}`
-		);
-	}
-	return new Gio.Settings({ settings_schema: schemaObj });
-};
-
 var Prefs = class {
 	constructor() {
-		this.settings = getLocalSettings(SCHEMA_PATH)
+		this.settings = getSettings(SCHEMA_PATH)
 	}
 
 	get radius() {
