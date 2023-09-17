@@ -1,63 +1,41 @@
-const Gtk = imports.gi.Gtk;
-let Extension = imports.misc.extensionUtils.getCurrentExtension();
-let { Prefs } = Extension.imports.settings
+import Adw from 'gi://Adw';
+import Gtk from 'gi://Gtk';
+import { ExtensionPreferences } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 
+export default class extends ExtensionPreferences {
+    fillPreferencesWindow(window) {
+        this._settings = this.getSettings();
 
-function init() {
+        const page = new Adw.PreferencesPage();
 
+        const group = new Adw.PreferencesGroup({ title: "General settings" });
+
+        let hbox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 20 })
+        let label = new Gtk.Label({ label: '', use_markup: true })
+        function updateLabel(val) { label.set_markup(`Border radius:\n<small>${val}px</small>`) }
+        let scale = new Gtk.Scale({
+            orientation: Gtk.Orientation.HORIZONTAL,
+            hexpand: true,
+            digits: 0,
+            adjustment: new Gtk.Adjustment({lower: 4, upper: 32, step_increment: 1}),
+            value_pos: Gtk.PositionType.RIGHT,
+            round_digits: 0
+        })
+        scale.connect('value-changed', (sw) => {
+            let newVal = sw.get_value()
+            if (newVal == this._settings.get_int('corner-radius')) return
+            this._settings.set_int('corner-radius', newVal)
+            updateLabel(newVal);
+        })
+
+        let val = this._settings.get_int('corner-radius')
+        updateLabel(val)
+        scale.set_value(val)
+        hbox.append(label)
+        hbox.append(scale)
+        group.add(hbox)
+        page.add(group)
+        window.add(page)
+    }
 }
 
-function buildPrefsWidget() {
-	let frame = new Gtk.Box({
-		orientation: Gtk.Orientation.VERTICAL,
-		'margin-top': 20,
-		'margin-bottom': 20,
-		'margin-start': 20,
-		'margin-end': 20
-	})
-
-	let hbox = new Gtk.Box({
-		orientation: Gtk.Orientation.HORIZONTAL,
-		spacing: 20
-	})
-
-	let label = new Gtk.Label({
-		label: "",
-		use_markup: true,
-	})
-	let adjustment = new Gtk.Adjustment({
-		lower: 4,
-		upper: 32,
-		step_increment: 1
-	})
-	let scale = new Gtk.Scale({
-		orientation: Gtk.Orientation.HORIZONTAL,
-		hexpand: true,
-		digits: 0,
-		adjustment: adjustment,
-		value_pos: Gtk.PositionType.RIGHT,
-		round_digits: 0
-	})
-
-	hbox.append(label)
-	hbox.append(scale)
-	frame.append(hbox)
-
-	function updateLabel(val) {
-		label.set_markup(`Border radius:\n<small>${val}px</small>`)
-	}
-
-	let prefs = new Prefs
-	const val = prefs.radius
-	scale.set_value(val)
-	updateLabel(val)
-	scale.connect('value-changed', function(sw) {
-		var newval = sw.get_value();
-		if (newval != prefs.radius) {
-			prefs.radius = newval
-			updateLabel(newval)
-		}
-	});
-	frame.show();
-	return frame;
-}

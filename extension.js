@@ -1,25 +1,21 @@
-const St = imports.gi.St
-const Main = imports.ui.main
-const Gio = imports.gi.Gio
-const Lang = imports.lang
-let Extension = imports.misc.extensionUtils.getCurrentExtension()
-let { Prefs } = Extension.imports.settings
+import St from "gi://St"
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import Gio from "gi://Gio"
+import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
-let cornerDir = Extension.dir.get_child('corners').get_path();
-
-class Ext {
+export default class extends Extension {
     enabled = false
-    _unbind = null
     _monitorListener = null
 
-    constructor() {
+    constructor(metadata) {
+        super(metadata)
         this.corners = {}
-        this.prefs = new Prefs
     }
 
     enable() {
         this.enabled = true
-        this._unbind = this.prefs.watch('corner-radius', this.update.bind(this))
+        this._settings = this.getSettings();
+        this._settings.connect('changed::corner-radius', () => this.updateCorners())
         this._monitorListener = Gio.DBus.session.signal_subscribe(
             'org.gnome.Mutter.DisplayConfig',
             'org.gnome.Mutter.DisplayConfig',
@@ -27,24 +23,22 @@ class Ext {
             '/org/gnome/Mutter/DisplayConfig',
             null,
             Gio.DBusSignalFlags.NONE,
-            () => this.update()
+            () => this.updateCorners()
         )
-        this.initCorners()
+        this.updateCorners()
     }
 
     disable() {
         this.destroyCorners()
         if (this._monitorListener) Gio.DBus.session.signal_unsubscribe(this._monitorListener)
-        if (this._unbind) this._unbind()
+        this._settings = null
     }
 
-    update() {
-        if (this.enabled) this.initCorners()
-    }
-
-    initCorners() {
-        log('initCorners')
-        let radius = this.prefs.radius
+    updateCorners() {
+        if (!this.enabled) return
+        log('drawCorners')
+        const radius = this._settings.get_int('corner-radius')
+        const cornerDir = this.dir.get_child('corners').get_path();
         this.destroyCorners()
 
         for (let monitor of Main.layoutManager.monitors) {
@@ -81,6 +75,3 @@ class Ext {
     }
 }
 
-function init() {
-    return new Ext()
-}
