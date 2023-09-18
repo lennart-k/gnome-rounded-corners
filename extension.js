@@ -4,8 +4,8 @@ import Gio from "gi://Gio"
 import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 export default class extends Extension {
-    enabled = false
     _monitorListener = null
+    _bindHandle = null
 
     constructor(metadata) {
         super(metadata)
@@ -13,9 +13,8 @@ export default class extends Extension {
     }
 
     enable() {
-        this.enabled = true
         this._settings = this.getSettings();
-        this._settings.connect('changed::corner-radius', () => this.updateCorners())
+        this._bindHandle = this._settings.connect('changed::corner-radius', () => this.updateCorners())
         this._monitorListener = Gio.DBus.session.signal_subscribe(
             'org.gnome.Mutter.DisplayConfig',
             'org.gnome.Mutter.DisplayConfig',
@@ -31,11 +30,11 @@ export default class extends Extension {
     disable() {
         this.destroyCorners()
         if (this._monitorListener) Gio.DBus.session.signal_unsubscribe(this._monitorListener)
+        this._settings.disconnect(this._bindHandle)
         this._settings = null
     }
 
     updateCorners() {
-        if (!this.enabled) return
         log('drawCorners')
         const radius = this._settings.get_int('corner-radius')
         const cornerDir = this.dir.get_child('corners').get_path();
