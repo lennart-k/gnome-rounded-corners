@@ -35,7 +35,6 @@ export default class extends Extension {
     }
 
     drawCorners() {
-        log('drawCorners')
         const radius = this._settings.get_int('corner-radius')
         const cornerDir = this.dir.get_child('corners').get_path();
         this.destroyCorners()
