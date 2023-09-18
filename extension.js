@@ -14,7 +14,7 @@ export default class extends Extension {
 
     enable() {
         this._settings = this.getSettings();
-        this._bindHandle = this._settings.connect('changed::corner-radius', () => this.updateCorners())
+        this._bindHandle = this._settings.connect('changed::corner-radius', () => this.drawCorners())
         this._monitorListener = Gio.DBus.session.signal_subscribe(
             'org.gnome.Mutter.DisplayConfig',
             'org.gnome.Mutter.DisplayConfig',
@@ -22,9 +22,9 @@ export default class extends Extension {
             '/org/gnome/Mutter/DisplayConfig',
             null,
             Gio.DBusSignalFlags.NONE,
-            () => this.updateCorners()
+            () => this.drawCorners()
         )
-        this.updateCorners()
+        this.drawCorners()
     }
 
     disable() {
@@ -34,7 +34,7 @@ export default class extends Extension {
         this._settings = null
     }
 
-    updateCorners() {
+    drawCorners() {
         log('drawCorners')
         const radius = this._settings.get_int('corner-radius')
         const cornerDir = this.dir.get_child('corners').get_path();
