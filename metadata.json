@@ -1,8 +1,11 @@
 {
-    "name": "Rounded Corners",
-    "description": "Creates rounded corners for every monitor",
-    "uuid": "Rounded_Corners@lennart-k",
-    "shell-version": ["45"],
-    "settings-schema": "org.gnome.shell.extensions.lennart-k.rounded_corners",
-    "url": "https://github.com/lennart-k/gnome-rounded-corners"
+  "name": "Rounded Corners",
+  "description": "Creates rounded corners for every monitor",
+  "uuid": "Rounded_Corners@lennart-k",
+  "shell-version": [
+    "45",
+    "46"
+  ],
+  "settings-schema": "org.gnome.shell.extensions.lennart-k.rounded_corners",
+  "url": "https://github.com/lennart-k/gnome-rounded-corners"
 }
