@@ -63,6 +63,32 @@ export default class extends Extension {
                 Main.uiGroup.add_child(cornerDecoration)
             }
         }
+
+        {
+            let monitor = Main.layoutManager.primaryMonitor;
+            let geometryScale = monitor.geometry_scale || 1
+
+            for (let corner of ['tl', 'tr', 'bl', 'br']) {
+                let x = monitor.x + ((corner[1] == 'l') ? 0 : monitor.width - geometryScale*radius)
+                let y = monitor.y + 32 - (corner[0] == 'b' ? geometryScale*radius : 0)
+
+                let cornerDecoration = this.corners[`primary-${monitor.index}-${corner}`] = new St.Bin({
+                    style_class: `corner-decoration corner-{${corner}}`,
+                    reactive: false,
+                    x, y,
+                    width: geometryScale*radius,
+                    height: geometryScale*radius,
+                    can_focus: false,
+                    track_hover: false,
+                    style: `
+                        background-image: url("${cornerDir}/corner-${corner}.svg");
+                        background-size: contain;
+                    `
+                })
+
+                Main.uiGroup.add_child(cornerDecoration)
+            }
+        }
     }
 
     destroyCorners() {
