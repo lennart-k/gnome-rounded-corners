@@ -6,5 +6,13 @@
 			<summary>corner radius</summary>
 			<description/>
 		</key>
+<<<<<<< HEAD
+=======
+    <key type="b" name="extra-corners">
+      <default>true</default>
+      <summary>extra corners around the menu bar</summary>
+      <description />
+    </key>
+>>>>>>> ff5f71a (added settings)
 	</schema>
 </schemalist>

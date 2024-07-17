@@ -33,6 +33,25 @@ export default class extends ExtensionPreferences {
     scale.set_value(val)
     hbox.append(label)
     hbox.append(scale)
+<<<<<<< HEAD
+=======
+
+    hbox.append(new Gtk.Label({ label: '\n' }))
+
+    let extra_corners = new Gtk.CheckButton({ label: 'Extra Corners' })
+
+    extra_corners.connect('toggled', (sw) => {
+      let newVal = sw.get_active()
+      settings.set_boolean('extra-corners', newVal)
+    })
+
+    let corner_val = settings.get_boolean('extra-corners')
+    extra_corners.set_active(corner_val)
+
+    hbox.append(extra_corners)
+    
+
+>>>>>>> ff5f71a (added settings)
     group.add(hbox)
     page.add(group)
     window.add(page)
