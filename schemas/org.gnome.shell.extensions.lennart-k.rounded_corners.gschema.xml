@@ -6,10 +6,10 @@
 			<summary>corner radius</summary>
 			<description/>
 		</key>
-    <key type="b" name="extra-corners">
-      <default>true</default>
-      <summary>extra corners around the menu bar</summary>
-      <description />
-    </key>
+		<key type="b" name="extra-corners">
+			<default>true</default>
+			<summary>extra corners around the menu bar</summary>
+			<description />
+		</key>
 	</schema>
 </schemalist>
