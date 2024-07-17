@@ -33,8 +33,6 @@ export default class extends ExtensionPreferences {
     scale.set_value(val)
     hbox.append(label)
     hbox.append(scale)
-<<<<<<< HEAD
-=======
 
     hbox.append(new Gtk.Label({ label: '\n' }))
 
@@ -51,7 +49,6 @@ export default class extends ExtensionPreferences {
     hbox.append(extra_corners)
     
 
->>>>>>> ff5f71a (added settings)
     group.add(hbox)
     page.add(group)
     window.add(page)

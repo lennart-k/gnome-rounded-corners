@@ -6,10 +6,7 @@ import { Extension } from 'resource:///org/gnome/shell/extensions/extension.js';
 export default class extends Extension {
     _monitorListener = null
     _bindHandle = null
-<<<<<<< HEAD
-=======
     _extraCornerHandle = null
->>>>>>> ff5f71a (added settings)
 
     constructor(metadata) {
         super(metadata)
@@ -19,10 +16,7 @@ export default class extends Extension {
     enable() {
         this._settings = this.getSettings();
         this._bindHandle = this._settings.connect('changed::corner-radius', () => this.drawCorners())
-<<<<<<< HEAD
-=======
         this._extraCornerHandle = this._settings.connect('changed::extra-corners', () => this.drawCorners())
->>>>>>> ff5f71a (added settings)
         this._monitorListener = Gio.DBus.session.signal_subscribe(
             'org.gnome.Mutter.DisplayConfig',
             'org.gnome.Mutter.DisplayConfig',
@@ -72,21 +66,13 @@ export default class extends Extension {
             }
         }
 
-<<<<<<< HEAD
-        {
-=======
         if (this._settings.get_boolean('extra-corners')) {
->>>>>>> ff5f71a (added settings)
             let monitor = Main.layoutManager.primaryMonitor;
             let geometryScale = monitor.geometry_scale || 1
 
             for (let corner of ['tl', 'tr', 'bl', 'br']) {
                 let x = monitor.x + ((corner[1] == 'l') ? 0 : monitor.width - geometryScale*radius)
-<<<<<<< HEAD
-                let y = monitor.y + 32 - (corner[0] == 'b' ? geometryScale*radius : 0)
-=======
                 let y = monitor.y + Main.panel.height - (corner[0] == 'b' ? geometryScale*radius : 0)
->>>>>>> ff5f71a (added settings)
 
                 let cornerDecoration = this.corners[`primary-${monitor.index}-${corner}`] = new St.Bin({
                     style_class: `corner-decoration corner-{${corner}}`,
