@@ -4,7 +4,8 @@
   "uuid": "Rounded_Corners@lennart-k",
   "shell-version": [
     "45",
-    "46"
+    "46",
+    "47"
   ],
   "settings-schema": "org.gnome.shell.extensions.lennart-k.rounded_corners",
   "url": "https://github.com/lennart-k/gnome-rounded-corners"
