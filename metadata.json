@@ -5,7 +5,8 @@
   "shell-version": [
     "45",
     "46",
-    "47"
+    "47",
+    "48"
   ],
   "settings-schema": "org.gnome.shell.extensions.lennart-k.rounded_corners",
   "url": "https://github.com/lennart-k/gnome-rounded-corners"
